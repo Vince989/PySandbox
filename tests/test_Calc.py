@@ -23,6 +23,15 @@ def test_CalcEval():
     assert calc.eval("1 + 2") == "3"
     assert calc.eval("1 +- 1") == "0"
     assert calc.eval("-1 - -1") == "0"
-    # ...
+    assert calc.eval("5-4") == "1"
+    assert calc.eval("5*2") == "10"
+    assert calc.eval("(2+5)*3") == "21"
+    assert calc.eval("10/2") == "5"
+    assert calc.eval("2+2*5+5") == "17"
+    assert calc.eval("2.8*3-1") == "7.4"
+    assert calc.eval("2^8") == "256"
+    assert calc.eval("2^8*5-1") == "1279"
+
+    # "DLC" cases
     # assert calc.eval("sqrt(4)") == "2" # TODO
     # assert calc.eval("1/0") == ERROR # TODO
