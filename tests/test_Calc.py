@@ -20,7 +20,9 @@ def test_CalcEval():
     # assert calc.parse("1 + 1") == "1"
 
     # Actual test cases
-    assert calc.eval("1 + 2") == "3"
+    assert calc.eval("1 + 2") == 3.0
+    assert calc.eval("1 + 2 + 4") == 7.0
+    assert calc.eval("-1 + 2") == 1.0
     assert calc.eval("1 +- 1") == "0"
     assert calc.eval("-1 - -1") == "0"
     assert calc.eval("5-4") == "1"

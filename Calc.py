@@ -5,7 +5,6 @@ class Calc(object):
         formula = str.replace(formula, " ", "")
         formula = str.replace(formula, "+-", "-")
         formula = str.replace(formula, "--", "+")
-        # TODO Handle when it starts with -
         return formula
 
     @staticmethod
@@ -15,10 +14,15 @@ class Calc(object):
 
         # TODO Handle sqrt() ? -> ^0.5
 
-        # TODO ( )
+        # TODO ( ) -> eval() the sub-formula
 
         # TODO ., ^ */ +-
 
-        return formula
+        while formula.find("+", 1) > -1:
+            splits = formula.split("+", maxsplit=1)
+            splits[0] = Calc.eval(splits[0])
+            splits[1] = Calc.eval(splits[1])
+            formula = str(splits[0] + splits[1])
 
-    pass
+        # No more tokens, return the value
+        return float(formula)
