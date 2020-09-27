@@ -35,5 +35,12 @@ class Calc(object):
             parts[1] = Calc.eval(parts[1])
             formula = str(parts[0] + parts[1])
 
+        # Handle the multiplications
+        if formula.find("*", 1) > -1:
+            parts = formula.split("*", maxsplit=1)
+            parts[0] = Calc.eval(parts[0])
+            parts[1] = Calc.eval(parts[1])
+            formula = str(parts[0] * parts[1])
+
         # No more tokens, return the value
         return float(formula)
