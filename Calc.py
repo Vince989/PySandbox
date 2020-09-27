@@ -1,14 +1,24 @@
 # -*- coding: utf-8 -*-
 class Calc(object):
     @staticmethod
-    def parse(formula):
+    def parse(formula: str) -> str:
+        # TODO Assert that there are as many  ('s  as  )'s
+
         formula = str.replace(formula, " ", "")
         formula = str.replace(formula, "+-", "-")
         formula = str.replace(formula, "--", "+")
+
+        # Swap -'s for +- instead,
+        # then remove leading + if now present
+        formula = str.replace(formula, "-", "+-")
+        if formula[0] == "+":
+            formula = formula[1:]
+
         return formula
 
+    # noinspection PyTypeChecker
     @staticmethod
-    def eval(formula):
+    def eval(formula: str) -> float:
         # Clean it up first...
         formula = Calc.parse(formula)
 
@@ -16,13 +26,14 @@ class Calc(object):
 
         # TODO ( ) -> eval() the sub-formula
 
-        # TODO ., ^ */ +-
+        # TODO ., ^ */
 
-        while formula.find("+", 1) > -1:
-            splits = formula.split("+", maxsplit=1)
-            splits[0] = Calc.eval(splits[0])
-            splits[1] = Calc.eval(splits[1])
-            formula = str(splits[0] + splits[1])
+        # Handle the additions, and negative additions
+        if formula.find("+", 1) > -1:
+            parts = formula.split("+", maxsplit=1)
+            parts[0] = Calc.eval(parts[0])
+            parts[1] = Calc.eval(parts[1])
+            formula = str(parts[0] + parts[1])
 
         # No more tokens, return the value
         return float(formula)
