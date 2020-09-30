@@ -14,9 +14,13 @@ class Calc(object):
         if formula[0] == "+":
             formula = formula[1:]
 
+        # Remove added "garbage"
+        formula = str.replace(formula, "*+-", "*-")
+        formula = str.replace(formula, "/+-", "/-")
+
         return formula
 
-    # noinspection PyTypeChecker
+    # noinspection PyTypeChecker,PyUnresolvedReferences
     @staticmethod
     def eval(formula: str) -> float:
         # Clean it up first...
@@ -24,9 +28,9 @@ class Calc(object):
 
         # TODO Handle sqrt() ? -> ^0.5
 
-        # TODO ( ) -> eval() the sub-formula
+        # TODO For ( ) -> eval() the sub-formula
 
-        # TODO ., ^ */
+        # TODO ^
 
         # Handle the additions, and negative additions
         if formula.find("+", 1) > -1:
@@ -35,12 +39,18 @@ class Calc(object):
             parts[1] = Calc.eval(parts[1])
             formula = str(parts[0] + parts[1])
 
-        # Handle the multiplications
+        # Handle the multiplications and divisions
         if formula.find("*", 1) > -1:
             parts = formula.split("*", maxsplit=1)
             parts[0] = Calc.eval(parts[0])
             parts[1] = Calc.eval(parts[1])
             formula = str(parts[0] * parts[1])
+
+        if formula.find("/", 1) > -1:
+            parts = formula.split("/", maxsplit=1)
+            parts[0] = Calc.eval(parts[0])
+            parts[1] = Calc.eval(parts[1])
+            formula = str(parts[0] / parts[1])
 
         # No more tokens, return the value
         return float(formula)

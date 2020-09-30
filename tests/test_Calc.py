@@ -44,6 +44,7 @@ def test_CalcEval():
 
     # Multiplications
     assert calc.eval("5*2") == 10
+    assert calc.eval("5 * -2") == -10
     assert calc.eval("2+2*5+5") == 17
 
     # TODO Fix rounding issues?
@@ -52,11 +53,14 @@ def test_CalcEval():
 
     # Divisions
     assert calc.eval("10/2") == 5
+    assert calc.eval("10/2 + 2") == 7
+    assert calc.eval("2 + 10/2") == 7
 
     # Priorities
     assert calc.eval("(2+5)*3") == 21
     assert calc.eval("2+(5*3)") == 17
 
+    # Exponents
     assert calc.eval("2^8") == 256
     assert calc.eval("2^8*5-1") == 1279
 
