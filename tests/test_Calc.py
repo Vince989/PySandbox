@@ -21,6 +21,9 @@ def test_CalcParse():
     assert calc.parse("64  - 16") == "64+-16"
     assert calc.parse("-64  - 16") == "-64+-16"
 
+    assert calc.parse("10 * -2") == "10*-2"
+    assert calc.parse("10 / -2") == "10/-2"
+
 
 # noinspection PyPep8Naming
 def test_CalcEval():
