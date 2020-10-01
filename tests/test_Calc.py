@@ -8,25 +8,27 @@ calc = Calc()
 def test_CalcParse():
     assert calc
     assert calc.parse("16 +  32") == "16+32"
-    assert calc.parse("16 + -32") == "16+-32"
-    assert calc.parse("-16 + -32") == "-16+-32"
 
-    assert calc.parse("16--32") == "16+32"
-    assert calc.parse("16--32--64") == "16+32+64"
-    assert calc.parse("16 - -32") == "16+32"
-    assert calc.parse("16 - -32 -  -64") == "16+32+64"
-    assert calc.parse("-16 - -4") == "-16+4"
-    assert calc.parse("-16 - -4 -  -2") == "-16+4+2"
+    if calc.no_subs:
+        assert calc.parse("16 + -32") == "16+-32"
+        assert calc.parse("-16 + -32") == "-16+-32"
 
-    assert calc.parse("64  - 16") == "64+-16"
-    assert calc.parse("-64  - 16") == "-64+-16"
+        assert calc.parse("16--32") == "16+32"
+        assert calc.parse("16--32--64") == "16+32+64"
+        assert calc.parse("16 - -32") == "16+32"
+        assert calc.parse("16 - -32 -  -64") == "16+32+64"
+        assert calc.parse("-16 - -4") == "-16+4"
+        assert calc.parse("-16 - -4 -  -2") == "-16+4+2"
+
+        assert calc.parse("64  - 16") == "64+-16"
+        assert calc.parse("-64  - 16") == "-64+-16"
 
     assert calc.parse("10 * -2") == "10*-2"
     assert calc.parse("10 / -2") == "10/-2"
 
 
 # noinspection PyPep8Naming
-def test_CalcEval():
+def test_CalcEval_base():
     # TODO Bogus result, wtf to do ???  :P
     # assert calc.parse("1 + 1") == "1"
 
@@ -59,9 +61,12 @@ def test_CalcEval():
     assert calc.eval("10/2 + 2") == 7
     assert calc.eval("2 + 10/2") == 7
 
+
+# noinspection PyPep8Naming
+def test_CalcEval_more():
     # Priorities
     assert calc.eval("(2+5)*3") == 21
-    assert calc.eval("2+(5*3)") == 17
+    assert calc.eval("2*(5+3)") == 16
 
     # Exponents
     assert calc.eval("2^8") == 256

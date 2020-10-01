@@ -1,22 +1,28 @@
 # -*- coding: utf-8 -*-
 class Calc(object):
+    # Subtraction avoidance flag, causes subtractions
+    # to be replaced by negative additions instead
+    no_subs = True
+
     @staticmethod
     def parse(formula: str) -> str:
         # TODO Assert that there are as many  ('s  as  )'s
 
         formula = str.replace(formula, " ", "")
-        formula = str.replace(formula, "+-", "-")
-        formula = str.replace(formula, "--", "+")
 
-        # Swap -'s for +- instead,
-        # then remove leading + if now present
-        formula = str.replace(formula, "-", "+-")
-        if formula[0] == "+":
-            formula = formula[1:]
+        if Calc.no_subs:
+            formula = str.replace(formula, "+-", "-")
+            formula = str.replace(formula, "--", "+")
 
-        # Remove added "garbage"
-        formula = str.replace(formula, "*+-", "*-")
-        formula = str.replace(formula, "/+-", "/-")
+            # Swap -'s for +- instead,
+            # then remove leading + if now present
+            formula = str.replace(formula, "-", "+-")
+            if formula[0] == "+":
+                formula = formula[1:]
+
+            # Remove "garbage" added from previous step
+            formula = str.replace(formula, "*+-", "*-")
+            formula = str.replace(formula, "/+-", "/-")
 
         return formula
 
