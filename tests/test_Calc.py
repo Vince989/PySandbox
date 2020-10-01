@@ -4,8 +4,7 @@ from ..Calc import Calc
 calc = Calc()
 
 
-# noinspection PyPep8Naming
-def test_CalcParse():
+def test_calc_parse():
     assert calc
     assert calc.parse("16 +  32") == "16+32"
 
@@ -27,8 +26,7 @@ def test_CalcParse():
     assert calc.parse("10 / -2") == "10/-2"
 
 
-# noinspection PyPep8Naming
-def test_CalcEval_base():
+def test_calc_eval_base():
     # TODO Bogus result, wtf to do ???  :P
     # assert calc.parse("1 + 1") == "1"
 
@@ -62,8 +60,7 @@ def test_CalcEval_base():
     assert calc.eval("2 + 10/2") == 7
 
 
-# noinspection PyPep8Naming
-def test_CalcEval_more():
+def test_calc_eval_more():
     # Priorities
     assert calc.eval("(2+5)*3") == 21
     assert calc.eval("2*(5+3)") == 16

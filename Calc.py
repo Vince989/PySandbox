@@ -9,18 +9,19 @@ class Calc(object):
         # TODO Assert that there are as many  ('s  as  )'s
 
         formula = str.replace(formula, " ", "")
+        formula = str.replace(formula, "--", "+")
 
         if Calc.no_subs:
+            # Start by fixing all minus signs
             formula = str.replace(formula, "+-", "-")
-            formula = str.replace(formula, "--", "+")
 
-            # Swap -'s for +- instead,
+            # Then swap -'s for +- instead,
             # then remove leading + if now present
             formula = str.replace(formula, "-", "+-")
             if formula[0] == "+":
                 formula = formula[1:]
 
-            # Remove "garbage" added from previous step
+            # Finally, remove "garbage" added from previous step
             formula = str.replace(formula, "*+-", "*-")
             formula = str.replace(formula, "/+-", "/-")
 
