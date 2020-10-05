@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 class Calc(object):
-    # Subtraction avoidance flag, causes subtractions
-    # to be replaced by negative additions instead
     no_subs = True
+    """ Subtraction avoidance flag, causes subtractions
+    to be replaced by negative additions instead """
 
     @staticmethod
     def parse(formula: str) -> str:
