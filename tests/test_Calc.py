@@ -7,6 +7,7 @@ calc = Calc()
 def test_calc_parse():
     assert calc
     assert calc.parse("16 +  32") == "16+32"
+    assert calc.parse("  ") == ""
 
     if calc.no_subs:
         assert calc.parse("16 + -32") == "16+-32"
@@ -32,6 +33,7 @@ def test_calc_eval_base():
 
     # Additions
     assert calc.eval("1 + 2") == 3
+    assert calc.eval("+1 + 2") == 3
     assert calc.eval("1 + 2 + 4") == 7
     assert calc.eval("-1 + 2") == 1
     assert calc.eval("-1+2 + 4+8") == 13

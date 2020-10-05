@@ -9,23 +9,25 @@ class Calc(object):
         # TODO Assert that there are as many  ('s  as  )'s
 
         formula = str.replace(formula, " ", "")
-        formula = str.replace(formula, "--", "+")
 
-        # Do we work around subtractions
-        # by doing negative-additions instead?
-        if Calc.no_subs:
-            # Start by changing all +- signs to -
-            formula = str.replace(formula, "+-", "-")
+        if formula:  # if formula is now empty, skip the rest
+            formula = str.replace(formula, "--", "+")
 
-            # Then swap -'s for +- instead,
-            # and remove leading + if now present
-            formula = str.replace(formula, "-", "+-")
-            if formula[0] == "+":
-                formula = formula[1:]
+            # Do we work around subtractions
+            # by doing negative-additions instead?
+            if Calc.no_subs:
+                # Start by changing all +- signs to -
+                formula = str.replace(formula, "+-", "-")
 
-            # Finally, remove "garbage" added from previous step
-            formula = str.replace(formula, "*+-", "*-")
-            formula = str.replace(formula, "/+-", "/-")
+                # Then swap -'s for +- instead,
+                # and remove leading + if now present
+                formula = str.replace(formula, "-", "+-")
+                if formula[0] == "+":
+                    formula = formula[1:]
+
+                # Finally, remove "garbage" added from previous step
+                formula = str.replace(formula, "*+-", "*-")
+                formula = str.replace(formula, "/+-", "/-")
 
         return formula
 
@@ -37,7 +39,13 @@ class Calc(object):
 
         # TODO Handle sqrt() ? -> ^0.5
 
-        # TODO For ( ) -> eval() the sub-formula
+        # For ( ) -> eval() the sub-formula
+        # TODO Improve parsing it can support more than one ( ) combo
+        if formula.find("(") > -1:
+            opening = formula.split("(", maxsplit=1)
+            closing = opening[1].split(")", maxsplit=1)
+            closing[0] = Calc.eval(closing[0])
+            formula = opening[0] + str(closing[0]) + closing[1]
 
         # TODO ^
 
@@ -49,13 +57,13 @@ class Calc(object):
             formula = str(parts[0] + parts[1])
 
         # Handle the multiplications and divisions
-        if formula.find("*", 1) > -1:
+        if formula.find("*") > -1:
             parts = formula.split("*", maxsplit=1)
             parts[0] = Calc.eval(parts[0])
             parts[1] = Calc.eval(parts[1])
             formula = str(parts[0] * parts[1])
 
-        if formula.find("/", 1) > -1:
+        if formula.find("/") > -1:
             parts = formula.split("/", maxsplit=1)
             parts[0] = Calc.eval(parts[0])
             parts[1] = Calc.eval(parts[1])
