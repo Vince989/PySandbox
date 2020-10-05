@@ -27,8 +27,8 @@ def test_calc_parse():
 
 
 def test_calc_eval_base():
-    # TODO Bogus result, wtf to do ???  :P
-    # assert calc.parse("1 + 1") == "1"
+    # TODO Bogus result from the specs, wtf to do ???  :P
+    # assert calc.parse("1 + 1") == 1
 
     # Additions
     assert calc.eval("1 + 2") == 3
@@ -71,4 +71,4 @@ def test_calc_eval_more():
 
     # "DLC" cases
     # assert calc.eval("sqrt(4)") == "2" # TODO
-    # assert calc.eval("1/0") == ERROR # TODO
+    # assert calc.eval("1/0") == ERROR

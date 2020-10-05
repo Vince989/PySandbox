@@ -11,12 +11,14 @@ class Calc(object):
         formula = str.replace(formula, " ", "")
         formula = str.replace(formula, "--", "+")
 
+        # Do we work around subtractions
+        # by doing negative-additions instead?
         if Calc.no_subs:
-            # Start by fixing all minus signs
+            # Start by changing all +- signs to -
             formula = str.replace(formula, "+-", "-")
 
             # Then swap -'s for +- instead,
-            # then remove leading + if now present
+            # and remove leading + if now present
             formula = str.replace(formula, "-", "+-")
             if formula[0] == "+":
                 formula = formula[1:]
@@ -61,3 +63,13 @@ class Calc(object):
 
         # No more tokens, return the value
         return float(formula)
+
+
+if __name__ == "__main__":
+    ans = "1"
+    while ans:
+        ans = input("Hello! What do want to calculate? (Empty line to exit) ")
+        if ans:
+            print(Calc.eval(ans))
+    else:
+        print("Bye bye!")
