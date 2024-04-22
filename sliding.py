@@ -23,7 +23,7 @@ class Piece:
         self.width = width
         self.block_type = length * width
 
-    def __repr__(self):
+    def __str__(self):
         if self.width > self.length:
             shape = "wide"
         elif self.length > self.width:
@@ -31,7 +31,7 @@ class Piece:
         else:
             shape = "sq"
 
-        return (f"({self.id}: {self.length}l {self.width}w "
+        return (f"({self.id}: {self.length}L {self.width}w, "
                 f"{self.row}r {self.col}y  {self.block_type}{shape})")
 
 
